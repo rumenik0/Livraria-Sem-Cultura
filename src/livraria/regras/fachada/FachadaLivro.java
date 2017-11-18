@@ -5,6 +5,7 @@
  */
 package livraria.regras.fachada;
 
+import livraria.regras.RegraLivro;
 import livraia.negocio.basica.Livro;
 import livraria.erro.RegraException;
 

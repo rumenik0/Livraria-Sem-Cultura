@@ -20,10 +20,7 @@ public class RegraAutor {
                throw new RegraException("Objeto Nulo");               
                       
            if(a.getNome().isEmpty() || a.getNome() == null)
-               throw new RegraException ("Preencher dados do Autor");
-           
-                   
-                   
-                   
+               throw new RegraException ("Preencher dados do Autor");       
+                                     
        }
 }

@@ -36,8 +36,7 @@ public class RegraFuncionario {
            throw new RegraException("Login em branco");
         
         if(f.getSenha().isEmpty() || f.getSenha() == null)
-           throw new RegraException("Senha em branco");
-        
+           throw new RegraException("Senha em branco");        
             
     }
     

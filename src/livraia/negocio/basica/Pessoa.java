@@ -9,7 +9,7 @@ package livraia.negocio.basica;
  *
  * @author Pedro Nardelli
  */
-abstract public class Pessoa {
+public abstract class Pessoa {
     public Pessoa(){}
     
     /**

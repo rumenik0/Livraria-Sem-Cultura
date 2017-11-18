@@ -33,14 +33,20 @@ public interface DAOAutor {
     
     /**
      * Responsavel por remover um Autor cadastrado
-     * @param a
+     * @param codigo
      * @throws DAOException erro na camada de dados
      * @throws ConexaoException erro durante a conexão com o Banco de Dados
      */
-    public void remover (Autor a) throws DAOException, ConexaoException;
+    public void remover (Integer codigo) throws DAOException, ConexaoException;
     
-    
-    
-    
+    /**
+     * Responsavel por consultar um Autor cadastrado
+     * @param codigo
+     * @return
+     * @throws DAOException erro na camada de dados
+     * @throws ConexaoException erro durante a conexão com o Banco de Dados
+     */
+    public Autor consultar(Integer codigo)throws DAOException, ConexaoException;
+           
     
 }

@@ -18,12 +18,6 @@ public class DAOLivroImpl implements DAOLivro{
     @Override
     public void inserir(Livro l) throws DAOException, ConexaoException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-   
-    }
-
-    @Override
-    public void remover(Livro l) throws DAOException, ConexaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -33,6 +27,11 @@ public class DAOLivroImpl implements DAOLivro{
 
     @Override
     public Livro consultar(String id) throws DAOException, ConexaoException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void remover(String Id) throws DAOException, ConexaoException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

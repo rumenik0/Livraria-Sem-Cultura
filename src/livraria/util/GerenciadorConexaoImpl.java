@@ -22,7 +22,7 @@ public class GerenciadorConexaoImpl implements GerenciadorConexao{
     }
     
     /**
-     * Implantando padrão...na Classe.
+     * Implantando padrão singleton na Classe.
      * @return 
      */
     public  static GerenciadorConexaoImpl getInstancia(){

@@ -12,6 +12,7 @@ import livraia.negocio.basica.Livro;
 import livraria.erro.RegraException;
 import livraria.regras.fachada.FachadaGenero;
 import livraria.regras.fachada.FachadaLivro;
+import livraria.regras.fachada.FachadaEditora;
 
 /**
  *

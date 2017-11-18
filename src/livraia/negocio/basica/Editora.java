@@ -17,9 +17,10 @@ public class Editora {
             this.razaoSocial = razaoSocial;
             this.telefone = telefone;
     }
-    
+        
+        private Integer codigo;
         private String razaoSocial;
-        private String telefone;    
+        private String telefone;
 
     /**
      * @return the razaoSocial
@@ -47,6 +48,20 @@ public class Editora {
      */
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    /**
+     * @return the codigo
+     */
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
     
 }

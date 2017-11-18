@@ -5,7 +5,12 @@
  */
 package livravia.telas;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import livraia.negocio.basica.Livro;
+import livraria.erro.RegraException;
+import livraria.regras.fachada.FachadaLivro;
 
 /**
  *
@@ -13,7 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class CadLivro extends javax.swing.JFrame {
 
-    /**
+    /**s
      * Creates new form CadLivro
      */
     public CadLivro() {
@@ -39,8 +44,8 @@ public class CadLivro extends javax.swing.JFrame {
         txtTituloLivro = new javax.swing.JTextField();
         txtEdicaoLivro = new javax.swing.JTextField();
         txtAnoLivro = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
+        picEditora = new javax.swing.JComboBox();
+        picGenero = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         btnCadastrarLivro = new javax.swing.JButton();
 
@@ -73,14 +78,14 @@ public class CadLivro extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setFont(new java.awt.Font("Berlin Sans FB", 0, 11)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        picEditora.setFont(new java.awt.Font("Berlin Sans FB", 0, 11)); // NOI18N
+        picEditora.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox2.setFont(new java.awt.Font("Berlin Sans FB", 0, 11)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+        picGenero.setFont(new java.awt.Font("Berlin Sans FB", 0, 11)); // NOI18N
+        picGenero.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        picGenero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
+                picGeneroActionPerformed(evt);
             }
         });
 
@@ -105,18 +110,16 @@ public class CadLivro extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel3)
-                            .addComponent(txtEdicaoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtAnoLivro, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, 139, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel3)
+                        .addComponent(txtEdicaoLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtAnoLivro)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(picEditora, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(picGenero, 0, 139, Short.MAX_VALUE)
                         .addComponent(txtTituloLivro)
                         .addComponent(btnCadastrarLivro, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)))
                 .addGap(175, 175, 175))
@@ -145,11 +148,11 @@ public class CadLivro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(picEditora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addGap(2, 2, 2)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(picGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnCadastrarLivro)
                 .addContainerGap(33, Short.MAX_VALUE))
@@ -158,9 +161,9 @@ public class CadLivro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+    private void picGeneroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_picGeneroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_picGeneroActionPerformed
 
     private void btnCadastrarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarLivroActionPerformed
         // TODO add your handling code here:
@@ -170,9 +173,21 @@ public class CadLivro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Campo edição é obrigatório!");
         if (txtAnoLivro.getText().isEmpty())
             JOptionPane.showMessageDialog(null, "Campo ano é obrigatório!");
-        String titulo = txtTituloLivro.getText();
-        String edicao = txtEdicaoLivro.getText();
-        String ano = txtAnoLivro.getText();
+        Livro livro = new Livro();
+        livro.setTitulo(txtTituloLivro.getText());
+        livro.setEdicao(txtEdicaoLivro.getText());
+        livro.setAno(txtAnoLivro.getText());
+        livro.setEditora((String) picEditora.getSelectedItem());
+        livro.setGenero((String) picGenero.getSelectedItem());
+        FachadaLivro f = new FachadaLivro();
+        try{
+            f.cadastrarLivro(livro);
+            JOptionPane.showMessageDialog(this, "Cadastro Realizado");
+                    
+        } catch (RegraException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+ 
     }//GEN-LAST:event_btnCadastrarLivroActionPerformed
 
     private void txtEdicaoLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEdicaoLivroActionPerformed
@@ -216,8 +231,6 @@ public class CadLivro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarLivro;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -226,6 +239,8 @@ public class CadLivro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JComboBox picEditora;
+    private javax.swing.JComboBox picGenero;
     private javax.swing.JTextField txtAnoLivro;
     private javax.swing.JTextField txtEdicaoLivro;
     private javax.swing.JTextField txtTituloLivro;

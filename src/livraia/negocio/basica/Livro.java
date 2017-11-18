@@ -14,7 +14,7 @@ public class Livro {
     
     public Livro(){}
     
-    public Livro(String titulo, String edicao, String ano, String editora, String genero){
+    public Livro(String titulo, String edicao, String ano, Editora editora, Genero genero){
             this.titulo = titulo;
             this.edicao = edicao;
             this.ano = ano;
@@ -24,8 +24,8 @@ public class Livro {
         private String titulo;
         private String edicao;
         private String ano;
-        private String editora;
-        private String genero;
+        private Editora editora;
+        private Genero genero;
 
     /**
      * @return the titulo
@@ -72,29 +72,28 @@ public class Livro {
     /**
      * @return the editora
      */
-    public String getEditora() {
+    public Editora getEditora() {
         return editora;
-    }
-
-    /**
-     * @param editora the editora to set
-     */
-    public void setEditora(String editora) {
-        this.editora = editora;
     }
 
     /**
      * @return the genero
      */
-    public String getGenero() {
+    public Genero getGenero() {
         return genero;
+    }
+
+    /**
+     * @param editora the editora to set
+     */
+    public void setEditora(Editora editora) {
+        this.editora = editora;
     }
 
     /**
      * @param genero the genero to set
      */
-    public void setGenero(String genero) {
+    public void setGenero(Genero genero) {
         this.genero = genero;
     }
-    
 }

@@ -9,6 +9,6 @@ package livraria.regras.fachada;
  *
  * @author aluno
  */
-class FachadaEditora {
+public class FachadaEditora {
     
 }

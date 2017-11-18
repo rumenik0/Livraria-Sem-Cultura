@@ -11,6 +11,16 @@ package livraia.negocio.basica;
  * @author aluno
  */
 public class Livro {
+    
+    public Livro(){}
+    
+    public Livro(String titulo, String edicao, String ano, String editora, String genero){
+            this.titulo = titulo;
+            this.edicao = edicao;
+            this.ano = ano;
+            this.editora = editora;
+            this.genero = genero;    
+    }
         private String titulo;
         private String edicao;
         private String ano;

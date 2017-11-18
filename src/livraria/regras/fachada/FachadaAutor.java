@@ -5,11 +5,21 @@
  */
 package livraria.regras.fachada;
 
+import livraia.negocio.basica.Autor;
+import livraria.erro.RegraException;
+import livraria.regras.RegraAutor;
+
 /**
  *
  * @author aluno
  */
 public class FachadaAutor {
-    
+    public void cadastrar(Autor a) throws RegraException{
+       
+        RegraAutor ra = new RegraAutor();
+        ra.validarDados(a);
+        
+        
+    }
     
 }

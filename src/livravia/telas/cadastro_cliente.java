@@ -123,13 +123,10 @@ public class cadastro_cliente extends javax.swing.JFrame {
     private void BtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIncluirActionPerformed
         if (txtNome.getText().isEmpty() 
         || txtTelefone.getText().isEmpty() 
-        || txtSexo.getText().isEmpty() 
-        || txtTelefone.getText().isEmpty()
+        || txtSexo.getText().isEmpty()
         || txtCpf.getText().isEmpty())
             JOptionPane.showMessageDialog(null, "Favor preencher todos campos");
-        Pessoa p = new Cliente(txtNome.getText(),txtCpf.getText(),txtTelefone.getText(),txtSexo.getText());
-         
-        
+        Pessoa p = new Cliente(txtNome.getText(),txtTelefone.getText(),txtCpf.getText(),txtSexo.getText());
     }//GEN-LAST:event_BtnIncluirActionPerformed
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed

@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import livraia.negocio.basica.Livro;
 import livraria.erro.RegraException;
+import livraria.regras.fachada.FachadaGenero;
 import livraria.regras.fachada.FachadaLivro;
 
 /**
@@ -167,6 +168,9 @@ public class CadLivro extends javax.swing.JFrame {
 
     private void btnCadastrarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarLivroActionPerformed
         // TODO add your handling code here:
+        FachadaLivro fl = new FachadaLivro();
+        FachadaGenero fg = new FachadaGenero();
+        FachadaEditora fe = new FachadaEditora();
         if (txtTituloLivro.getText().isEmpty())
             JOptionPane.showMessageDialog(null, "Campo título é obrigatório!");
         if (txtEdicaoLivro.getText().isEmpty())
@@ -177,11 +181,12 @@ public class CadLivro extends javax.swing.JFrame {
         livro.setTitulo(txtTituloLivro.getText());
         livro.setEdicao(txtEdicaoLivro.getText());
         livro.setAno(txtAnoLivro.getText());
-        livro.setEditora((String) picEditora.getSelectedItem());
-        livro.setGenero((String) picGenero.getSelectedItem());
-        FachadaLivro f = new FachadaLivro();
+        
+        //livro.setEditora((String) picEditora.getSelectedItem());
+        //livro.setGenero((String) picGenero.getSelectedItem());
+        
         try{
-            f.cadastrarLivro(livro);
+            fl.cadastrarLivro(livro);
             JOptionPane.showMessageDialog(this, "Cadastro Realizado");
                     
         } catch (RegraException ex) {

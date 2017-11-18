@@ -21,10 +21,10 @@ public class RegraLivro {
        if (livro.getTitulo().isEmpty() || livro.getTitulo() == null){
            throw new RegraException("Titulo Vazio");
        }
-       if (livro.getEditora().isEmpty() || livro.getEditora() == null){
+       if (livro.getEditora().getRazaoSocial().isEmpty() || livro.getEditora() == null){
            throw new RegraException("Editora Vazio");
        }
-       if (livro.getGenero().isEmpty() || livro.getGenero()== null){
+       if (livro.getGenero().getNome().isEmpty() || livro.getGenero()== null){
            throw new RegraException("Genero Vazio");
        }
        if (livro.getAno().isEmpty() || livro.getAno()== null){

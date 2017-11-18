@@ -16,10 +16,13 @@ public class RegraAutor {
     
        public void validarDados(Autor a) throws RegraException{
            
-           if(a == null){
-               
-               
-           }
+           if(a == null)
+               throw new RegraException("Objeto Nulo");               
+                      
+           if(a.getNome().isEmpty() || a.getNome() == null)
+               throw new RegraException ("Preencher dados do Autor");
+           
+                   
                    
                    
        }

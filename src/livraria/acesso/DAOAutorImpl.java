@@ -44,13 +44,14 @@ public class DAOAutorImpl implements DAOAutor {
         
     }
     
-    public void remover(Autor a)throws DAOException,ConexaoException {
+    @Override
+    public void remover(Integer codigo) throws DAOException, ConexaoException {
         GerenciadorConexao ger = GerenciadorConexaoImpl.getInstancia();
-        String sql = "DELETE autor WHERE nome=?";
+        String sql = "DELETE autor WHERE codigo=?";
         try{
             Connection con = ger.abrirConexao();
             PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1,a.getNome());
+            pstm.setInt(1,codigo);
             pstm.executeUpdate();
             ger.fecharConexao(con);
         }catch(SQLException e){
@@ -73,6 +74,7 @@ public class DAOAutorImpl implements DAOAutor {
         }
     }
 
+    @Override
     public Autor consultar(String nome) throws DAOException,ConexaoException{
         Autor a = null;
         GerenciadorConexao ger = GerenciadorConexaoImpl.getInstancia();
@@ -92,15 +94,4 @@ public class DAOAutorImpl implements DAOAutor {
         }
         return a;
     }
-
-    @Override
-    public void remover(Integer codigo) throws DAOException, ConexaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public Autor consultar(Integer codigo) throws DAOException, ConexaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

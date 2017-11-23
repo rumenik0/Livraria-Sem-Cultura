@@ -46,7 +46,7 @@ public interface DAOAutor {
      * @throws DAOException erro na camada de dados
      * @throws ConexaoException erro durante a conexão com o Banco de Dados
      */
-    public Autor consultar(Integer codigo)throws DAOException, ConexaoException;
+    public Autor consultar(String nome)throws DAOException, ConexaoException;
            
     
 }

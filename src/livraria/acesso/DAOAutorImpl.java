@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import livraia.negocio.basica.Autor;
-import livraia.negocio.basica.Cliente;
 import livraria.erro.ConexaoException;
 import livraria.erro.DAOException;
 import livraria.util.GerenciadorConexao;
@@ -74,7 +73,6 @@ public class DAOAutorImpl implements DAOAutor {
         }
     }
 
-    @Override
     public Autor consultar(String nome) throws DAOException,ConexaoException{
         Autor a = null;
         GerenciadorConexao ger = GerenciadorConexaoImpl.getInstancia();
@@ -93,6 +91,16 @@ public class DAOAutorImpl implements DAOAutor {
             throw new DAOException();
         }
         return a;
+    }
+
+    @Override
+    public void remover(Integer codigo) throws DAOException, ConexaoException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Autor consultar(Integer codigo) throws DAOException, ConexaoException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

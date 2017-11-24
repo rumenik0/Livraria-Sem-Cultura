@@ -59,15 +59,15 @@ public class DAOClienteImpl implements DAOCliente{
     @Override
     public void alterar(Cliente c)throws DAOException,ConexaoException {
         GerenciadorConexao ger = GerenciadorConexaoImpl.getInstancia();
-        String sql = "UPDATE pessoa SET nome = ?,cpf = ?,tipo = ?,sexo = ?,telefone = ?";
+        String sql = "UPDATE pessoa SET nome = ?,tipo = ?,sexo = ?,telefone = ? WHERE CPF = ?";
         try{
             Connection con = ger.abrirConexao();
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1,c.getNome());
-            pstm.setString(2,c.getCpf());
-            pstm.setString(3,"C");
-            pstm.setString(4,c.getSexo());
-            pstm.setString(5,c.getTelefone());
+            pstm.setString(2,"C");
+            pstm.setString(3,c.getSexo());
+            pstm.setString(4,c.getTelefone());
+            pstm.setString(6,c.getCpf());
             pstm.executeUpdate();
             ger.fecharConexao(con);
         }catch(SQLException e){

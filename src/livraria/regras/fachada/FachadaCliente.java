@@ -12,7 +12,8 @@ import livraria.regras.RegraCliente;
  * @author Pedro Nardelli
  */
 public class FachadaCliente {
-    private final DAOClienteImpl dci;
+    
+    private RegraCliente rc;
     private Cliente c;
     
     public FachadaCliente(){
@@ -21,21 +22,22 @@ public class FachadaCliente {
     
     
     public void cadastrar(Cliente c) throws RegraException, DAOException, ConexaoException{
-        RegraCliente rc = new RegraCliente();
-        rc.validarDados(c);
-        
-        dci.inserir(c);
-    
+        try{
+            rc.validarDados(c);
+            dci.inserir(c);
+        }catch(DAOException e){
+            throw e;
+        }catch(ConexaoException e){
+            throw e;
+        }catch(RegraException e){
+            throw e;
+        }
     }
     public void alterar(Cliente c)throws RegraException, DAOException, ConexaoException{
         try{
-            c = dci.consultar(c.getCpf());
-            if(c == null)
-                throw new RegraException("Cliente não existe, não pode ser alterado");
+            
             dci.alterar(c);
-            
-            
-            
+           
         }catch(DAOException e){
             throw e;
         }catch(ConexaoException e){

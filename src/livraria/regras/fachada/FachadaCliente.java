@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package livraria.regras.fachada;
 
 import livraia.negocio.basica.Cliente;
@@ -17,23 +12,58 @@ import livraria.regras.RegraCliente;
  * @author Pedro Nardelli
  */
 public class FachadaCliente {
+    private final DAOClienteImpl dci;
+    private Cliente c;
+    
+    public FachadaCliente(){
+        dci = new DAOClienteImpl();
+    }
+    
+    
     public void cadastrar(Cliente c) throws RegraException, DAOException, ConexaoException{
         RegraCliente rc = new RegraCliente();
         rc.validarDados(c);
         
-        DAOClienteImpl dci = new DAOClienteImpl();
         dci.inserir(c);
     
     }
-    public void alterar(Cliente c)throws RegraException{
-    
+    public void alterar(Cliente c)throws RegraException, DAOException, ConexaoException{
+        try{
+            c = dci.consultar(c.getCpf());
+            if(c == null)
+                throw new RegraException("Cliente não existe, não pode ser alterado");
+            dci.alterar(c);
+            
+            
+            
+        }catch(DAOException e){
+            throw e;
+        }catch(ConexaoException e){
+            throw e;
+        }catch(RegraException e){
+            throw e;
+        }
+        
     }
-    public void remover(String cpf)throws RegraException{
+    public void remover(String cpf)throws RegraException, DAOException, ConexaoException{
+        try{
+            c = dci.consultar(cpf);
+            if (c == null)
+                throw new RegraException("Cliente não existe");
+            dci.remover(c);
+            
+        }catch (RegraException e){
+            throw e;
+        }
     }
-    public Cliente consultar(String cpf) throws DAOException, ConexaoException{
-        Cliente c = new Cliente();
-        DAOClienteImpl dci = new DAOClienteImpl();
-        c = dci.consultar(cpf);
+    public Cliente consultar(String cpf) throws RegraException,DAOException, ConexaoException{
+        try{         
+            c = dci.consultar(cpf);
+            if (c == null)
+                throw new RegraException("Cliente não existe");            
+        }catch(RegraException e){
+            throw e;
+        }  
         return c;
     }
     

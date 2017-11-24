@@ -19,7 +19,7 @@ public class FachadaAutor {
         RegraAutor ra = new RegraAutor();
         ra.validarDados(a);
         
-        
+    
     }
     
 }

@@ -110,6 +110,8 @@ public class Login extends javax.swing.JFrame {
         String senha =  txtSenha.getText();
         //Login x = new Login(login,senha);
         //CONTINUA...
+        new Principal().setVisible(true);
+        
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**

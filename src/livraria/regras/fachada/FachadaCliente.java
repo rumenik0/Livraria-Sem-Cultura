@@ -13,8 +13,9 @@ import livraria.regras.RegraCliente;
  */
 public class FachadaCliente {
     
-    private RegraCliente rc;
+    private RegraCliente regra;
     private Cliente c;
+    private DAOClienteImpl dci;
     
     public FachadaCliente(){
         dci = new DAOClienteImpl();
@@ -23,7 +24,7 @@ public class FachadaCliente {
     
     public void cadastrar(Cliente c) throws RegraException, DAOException, ConexaoException{
         try{
-            rc.validarDados(c);
+            regra.validarDados(c);
             dci.inserir(c);
         }catch(DAOException e){
             throw e;
@@ -35,8 +36,9 @@ public class FachadaCliente {
     }
     public void alterar(Cliente c)throws RegraException, DAOException, ConexaoException{
         try{
+            if (regra.existe(c))
+                regra.alterar(c);
             
-            dci.alterar(c);
            
         }catch(DAOException e){
             throw e;

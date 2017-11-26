@@ -5,6 +5,8 @@
  */
 package livraria.regras;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import livraia.negocio.basica.Editora;
 import livraria.acesso.DAOEditoraImpl;
 import livraria.erro.ConexaoException;
@@ -17,7 +19,9 @@ import livraria.erro.RegraException;
  */
 public class RegraEditora {
     private DAOEditoraImpl dao;
+    private Editora editora;
     public RegraEditora(){
+        editora = new Editora();
         dao = new DAOEditoraImpl();
     }
     public void validaDados(Editora e) throws RegraException{
@@ -28,9 +32,17 @@ public class RegraEditora {
         System.out.println("validou");  
 
     }
-    public void cadastrar(Editora e) throws DAOException, ConexaoException, RegraException{
-        System.out.println("consultar");  
-        if (dao.consultar(e.getRazaoSocial() )== null){
+    public void cadastrar(Editora e) throws DAOException, RegraException, ConexaoException{
+        try {
+            editora = dao.consultar(e.getRazaoSocial());
+        } catch (ConexaoException ex) {
+            System.out.println("Conexao exception");
+            throw ex;
+        }catch (DAOException ex) {
+            System.out.println("DAO Exception"+ex.getMessage());
+            throw ex;
+        }
+        if (editora== null){
             System.out.println("inserir"); 
             dao.inserir(e);
         }else

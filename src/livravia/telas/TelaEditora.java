@@ -19,15 +19,16 @@ import livraria.regras.fachada.FachadaEditora;
  * @author aluno
  */
 public class TelaEditora extends javax.swing.JFrame {
-    private Exception erro;
     private Editora editora;
     private FachadaEditora fachada;
+    private Exception erro;
     /**
      * Creates new form CadEditora
      */
     public TelaEditora() {
         fachada = new FachadaEditora();
         editora = new Editora();
+        erro = new Exception();
         initComponents();
     }
 
@@ -135,9 +136,11 @@ public class TelaEditora extends javax.swing.JFrame {
             System.out.println("fachada");    
             fachada.cadastrar(editora);
         } catch (DAOException | ConexaoException | RegraException ex) {
-            erro = ex;
-        } finally{
+            System.out.println("passou aqui?"); 
+            System.out.println("erro :"+ex.getMessage());
             JOptionPane.showMessageDialog(null,erro.getMessage());
+        } finally{
+            System.out.println("erro finally"); 
         }
         
         

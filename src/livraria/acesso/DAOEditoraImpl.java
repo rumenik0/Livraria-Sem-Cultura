@@ -54,7 +54,7 @@ public class DAOEditoraImpl implements DAOEditora{
         editora = null;
         System.out.println("get instancia"); 
         GerenciadorConexao ger = GerenciadorConexaoImpl.getInstancia();
-        String sql = "SELECT codigo,razao_social,telefone FROM pessoa WHERE razao_social =?";
+        String sql = "SELECT codigo,RAZAO_SOCIAL,TELEFONE FROM EDITORA WHERE RAZAO_SOCIAL =?";
         try{
             System.out.println("abrir conexao"); 
             Connection con = ger.abrirConexao();
@@ -69,7 +69,7 @@ public class DAOEditoraImpl implements DAOEditora{
             }
             ger.fecharConexao(con);
         }catch(SQLException e){
-            throw new DAOException();
+            throw new DAOException("SQL Exception no DAOEditora: "+e.getMessage());
         }
         return editora;
     }

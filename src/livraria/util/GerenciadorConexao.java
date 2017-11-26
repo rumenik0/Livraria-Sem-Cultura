@@ -6,6 +6,7 @@
 package livraria.util;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import livraria.erro.ConexaoException;
 
 
@@ -19,7 +20,7 @@ public interface GerenciadorConexao {
      * @return
      * @throws ConexaoException 
      */
-    public Connection abrirConexao() throws ConexaoException;
+    public Connection abrirConexao() throws ConexaoException,SQLException;
     
     /**
      * 

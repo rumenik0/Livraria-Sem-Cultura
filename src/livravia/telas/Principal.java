@@ -11,11 +11,23 @@ package livravia.telas;
  */
 public class Principal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Principal
-     */
+    private final TelaAutor         autor;
+    private final TelaGenero        genero;
+    private final TelaCliente       cliente;
+    private final TelaLivro         livro;             
+    private final TelaFuncionario   funcionario;
+    private final TelaEditora       editora;
+    
+    
     public Principal() {
         initComponents();
+        autor = new TelaAutor();
+        genero = new TelaGenero();
+        cliente = new TelaCliente();
+        livro = new TelaLivro();
+        funcionario = new TelaFuncionario();
+        editora = new TelaEditora();
+        
     }
 
     /**
@@ -65,8 +77,18 @@ public class Principal extends javax.swing.JFrame {
         });
 
         btnAutores.setText("Autores");
+        btnAutores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAutoresActionPerformed(evt);
+            }
+        });
 
         btnEditoras.setText("Editoras");
+        btnEditoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditorasActionPerformed(evt);
+            }
+        });
 
         btnGeneros.setText("Generos");
         btnGeneros.addActionListener(new java.awt.event.ActionListener() {
@@ -127,23 +149,33 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerosActionPerformed
-        new TelaGenero().setVisible(true);
+        genero.setVisible(true);
         
     }//GEN-LAST:event_btnGenerosActionPerformed
 
     private void btnLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLivrosActionPerformed
-        this.setVisible(false);
+        //this.setVisible(false);
         
-        new CadLivro().setVisible(true);
+        livro.setVisible(true);
     }//GEN-LAST:event_btnLivrosActionPerformed
 
     private void btnFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionariosActionPerformed
-        new CadastroFuncionario().setVisible(true);
+       funcionario.setVisible(true);
     }//GEN-LAST:event_btnFuncionariosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        cliente.setVisible(true);
         
     }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void btnAutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoresActionPerformed
+        autor.setVisible(true);
+    }//GEN-LAST:event_btnAutoresActionPerformed
+
+    private void btnEditorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditorasActionPerformed
+        editora.setVisible(true);
+        
+    }//GEN-LAST:event_btnEditorasActionPerformed
 
     /**
      * @param args the command line arguments

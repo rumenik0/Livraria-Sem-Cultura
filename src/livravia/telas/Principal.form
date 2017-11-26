@@ -116,11 +116,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Autores"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAutoresActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnEditoras">
       <Properties>
         <Property name="text" type="java.lang.String" value="Editoras"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditorasActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnGeneros">
       <Properties>

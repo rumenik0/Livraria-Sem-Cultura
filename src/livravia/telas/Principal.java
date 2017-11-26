@@ -5,6 +5,12 @@
  */
 package livravia.telas;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import livraria.erro.ConexaoException;
+import livraria.erro.DAOException;
+
 /**
  *
  * @author rudnik
@@ -19,7 +25,7 @@ public class Principal extends javax.swing.JFrame {
     private final TelaEditora       editora;
     
     
-    public Principal() {
+    public Principal() throws ConexaoException, DAOException {
         initComponents();
         autor = new TelaAutor();
         genero = new TelaGenero();
@@ -209,7 +215,13 @@ public class Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Principal().setVisible(true);
+                try {
+                    new Principal().setVisible(true);
+                } catch (ConexaoException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                } catch (DAOException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
             }
         });
     }

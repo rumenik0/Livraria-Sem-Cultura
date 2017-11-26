@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import livraia.negocio.basica.Livro;
-import livraria.erro.GoToMenu;
 import livraria.erro.RegraException;
 import livraria.regras.fachada.FachadaGenero;
 import livraria.regras.fachada.FachadaLivro;

@@ -5,8 +5,10 @@
  */
 package livraria.regras;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import livraia.negocio.basica.Editora;
 import livraria.acesso.DAOEditoraImpl;
 import livraria.erro.ConexaoException;
@@ -48,5 +50,13 @@ public class RegraEditora {
         }else
             throw new RegraException("Editora já existe!");
         
+    }
+    public DefaultTableModel defaultTable() throws Exception{
+        return dao.defaultTable();
+    }
+
+    public ArrayList<Editora> listar() throws ConexaoException, DAOException {
+        return dao.listar();
+                
     }
 }

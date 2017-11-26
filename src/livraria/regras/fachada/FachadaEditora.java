@@ -1,5 +1,6 @@
 package livraria.regras.fachada;
 
+import java.util.ArrayList;
 import livraia.negocio.basica.Editora;
 import livraria.erro.ConexaoException;
 import livraria.erro.DAOException;
@@ -23,5 +24,8 @@ public class FachadaEditora {
         System.out.println("cadastrar");  
         regra.cadastrar(e); 
             
+    }
+    public ArrayList<Editora> listar() throws ConexaoException, DAOException{
+        return regra.listar();
     }
 }

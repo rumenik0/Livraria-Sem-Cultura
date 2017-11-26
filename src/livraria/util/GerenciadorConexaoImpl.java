@@ -16,9 +16,9 @@ public class GerenciadorConexaoImpl implements GerenciadorConexao{
     private final String password;
     
     private GerenciadorConexaoImpl(){
-        url     = "url";
-        user    = "usuario";
-        password= "senha";
+        url     = "jdbc:mysql://localhost/teste";
+        user    = "root";
+        password= "root";
     }
     
     /**

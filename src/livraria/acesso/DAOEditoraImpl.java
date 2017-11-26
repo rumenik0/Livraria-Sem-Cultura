@@ -31,7 +31,7 @@ public class DAOEditoraImpl implements DAOEditora{
     }
 
     @Override
-    public Editora consultar(Integer codigo) throws DAOException, ConexaoException {
+    public Editora consultar(String razao) throws DAOException, ConexaoException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

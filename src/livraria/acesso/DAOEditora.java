@@ -44,5 +44,5 @@ public interface DAOEditora {
      * @throws DAOException Erro na camada de dados
      * @throws ConexaoException  Erro durante conexão com o Banco de Dados 
      */
-    public Editora consultar(Integer codigo)throws DAOException,ConexaoException;
+    public Editora consultar(String razao)throws DAOException,ConexaoException;
 }

@@ -6,13 +6,14 @@
 package livravia.telas;
 
 import javax.swing.JOptionPane;
+import livraria.regras.fachada.FachadaEditora;
 
 /**
  *
  * @author aluno
  */
 public class TelaEditora extends javax.swing.JFrame {
-
+    private FachadaEditora fachada;
     /**
      * Creates new form CadEditora
      */
@@ -34,7 +35,7 @@ public class TelaEditora extends javax.swing.JFrame {
         txtRazao = new javax.swing.JTextField();
         lblTelefone = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JTextField();
-        btnEntrar = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -48,11 +49,11 @@ public class TelaEditora extends javax.swing.JFrame {
         lblTelefone.setFont(new java.awt.Font("Berlin Sans FB", 0, 12)); // NOI18N
         lblTelefone.setText("Telefone");
 
-        btnEntrar.setText("Cadastrar");
-        btnEntrar.setActionCommand("botao");
-        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setActionCommand("botao");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEntrarActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
 
@@ -70,7 +71,7 @@ public class TelaEditora extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblRazao, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -97,21 +98,21 @@ public class TelaEditora extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:
         if (txtRazao.getText().isEmpty())
             JOptionPane.showMessageDialog(null,"O campo Razão Social é obrigatório!");
         if (txtTelefone.getText().isEmpty())
             JOptionPane.showMessageDialog(null,"O campo Telefone é obrigatório!");
-        //CONTINUA...
-    }//GEN-LAST:event_btnEntrarActionPerformed
+        
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.setVisible(false);
@@ -154,7 +155,7 @@ public class TelaEditora extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnEntrar;
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblRazao;

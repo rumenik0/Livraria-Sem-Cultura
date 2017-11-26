@@ -12,8 +12,7 @@ import livraia.negocio.basica.Genero;
  * @author aluno
  */
 public class FachadaGenero {
-    
-    public void cadastrarGenero(Genero g){
+    public void cadastrar(Genero g){
     
     }
 }

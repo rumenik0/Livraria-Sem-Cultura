@@ -6,18 +6,20 @@
 package livravia.telas;
 
 import javax.swing.JOptionPane;
+import livraria.regras.fachada.FachadaGenero;
 
 /**
  *
  * @author Pedro Nardelli
  */
 public class CadGenero extends javax.swing.JFrame {
-
+    private FachadaGenero fachada;
     /**
      * Creates new form Genero
      */
     public CadGenero() {
-        initComponents();
+        fachada = new FachadaGenero();
+        initComponents();  
     }
 
     /**
@@ -105,6 +107,7 @@ public class CadGenero extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Campo descrição é obrigatorio");    
        
         String descricao = txtDescricaoGenero.getText();
+        
          
         
     }//GEN-LAST:event_btnCadastroGeneroActionPerformed

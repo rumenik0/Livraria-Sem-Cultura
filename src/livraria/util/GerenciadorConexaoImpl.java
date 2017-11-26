@@ -16,7 +16,7 @@ public class GerenciadorConexaoImpl implements GerenciadorConexao{
     private final String password;
     
     private GerenciadorConexaoImpl(){
-        url     = "jdbc:mysql://localhost/teste";
+        url     = "jdbc:mysql://localhost/livraria";
         user    = "root";
         password= "root";
     }
@@ -36,6 +36,7 @@ public class GerenciadorConexaoImpl implements GerenciadorConexao{
     public Connection abrirConexao() throws ConexaoException {
         Connection c;
         try{    
+            System.out.println("getConnection, URL:"+url+"  USER:"+user+"  PASS: "+password); 
             c = DriverManager.getConnection(url, user, password);
             return c;
         }catch(SQLException e){

@@ -23,7 +23,7 @@ public class DAOFuncionarioImpl implements DAOFuncionario{
 
     @Override
     public void inserir(Funcionario f) throws DAOException, ConexaoException {
-       GerenciadorConexao ger = GerenciadorConexaoImpl.getInstancia();
+        GerenciadorConexao ger = GerenciadorConexaoImpl.getInstancia();
         String sql = "INSERT INTO funcionario (nome,cpf,tipo,sexo,telefone,endereco) VALUES (?,?,?,?,?,?)";
         try{
             Connection con = ger.abrirConexao();

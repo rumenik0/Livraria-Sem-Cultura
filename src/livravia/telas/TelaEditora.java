@@ -5,7 +5,13 @@
  */
 package livravia.telas;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import livraia.negocio.basica.Editora;
+import livraria.erro.ConexaoException;
+import livraria.erro.DAOException;
+import livraria.erro.RegraException;
 import livraria.regras.fachada.FachadaEditora;
 
 /**
@@ -13,11 +19,15 @@ import livraria.regras.fachada.FachadaEditora;
  * @author aluno
  */
 public class TelaEditora extends javax.swing.JFrame {
+    private Exception erro;
+    private Editora editora;
     private FachadaEditora fachada;
     /**
      * Creates new form CadEditora
      */
     public TelaEditora() {
+        fachada = new FachadaEditora();
+        editora = new Editora();
         initComponents();
     }
 
@@ -106,11 +116,30 @@ public class TelaEditora extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        // TODO add your handling code here:
-        if (txtRazao.getText().isEmpty())
+
+        
+        if (txtRazao.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"O campo Razão Social é obrigatório!");
-        if (txtTelefone.getText().isEmpty())
+            return;
+        }
+        if (txtTelefone.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"O campo Telefone é obrigatório!");
+            return;
+        }
+        System.out.println("começo");    
+        editora.setRazaoSocial(txtRazao.getText());
+        System.out.println("começo"); 
+        editora.setTelefone(txtTelefone.getText());
+        
+        try {
+            System.out.println("fachada");    
+            fachada.cadastrar(editora);
+        } catch (DAOException | ConexaoException | RegraException ex) {
+            erro = ex;
+        } finally{
+            JOptionPane.showMessageDialog(null,erro.getMessage());
+        }
+        
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 

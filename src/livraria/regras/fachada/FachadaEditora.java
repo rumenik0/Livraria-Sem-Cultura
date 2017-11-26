@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package livraria.regras.fachada;
 
 import livraia.negocio.basica.Editora;
@@ -23,11 +18,10 @@ public class FachadaEditora {
     }
     
     public void cadastrar(Editora e) throws DAOException, ConexaoException, RegraException {
-        try{
-            regra.validaDados(e);
-            regra.cadastrar(e); 
-        }catch(RegraException ex){
-            throw ex;
-        }     
+        System.out.println("valida dados");  
+        regra.validaDados(e);
+        System.out.println("cadastrar");  
+        regra.cadastrar(e); 
+            
     }
 }

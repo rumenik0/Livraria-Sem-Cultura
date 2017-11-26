@@ -25,12 +25,16 @@ public class RegraEditora {
             throw new RegraException("Objeto Nulo!");
         if (e.getRazaoSocial().isEmpty())
             throw new RegraException("Editora sem Razao Social!");
+        System.out.println("validou");  
 
     }
     public void cadastrar(Editora e) throws DAOException, ConexaoException, RegraException{
-        if (dao.consultar(e.getRazaoSocial() )== null)
+        System.out.println("consultar");  
+        if (dao.consultar(e.getRazaoSocial() )== null){
+            System.out.println("inserir"); 
+            dao.inserir(e);
+        }else
             throw new RegraException("Editora já existe!");
-        dao.inserir(e);
         
     }
 }

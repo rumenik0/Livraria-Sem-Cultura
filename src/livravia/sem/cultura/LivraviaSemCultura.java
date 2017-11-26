@@ -5,6 +5,8 @@
  */
 package livravia.sem.cultura;
 
+import livravia.telas.Login;
+
 /**
  *
  * @author Pedro Nardelli
@@ -16,6 +18,7 @@ public class LivraviaSemCultura {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        new Login().setVisible(true);
     }
     
 }

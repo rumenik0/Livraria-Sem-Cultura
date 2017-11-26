@@ -8,6 +8,7 @@ package livraria.regras;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import livraia.negocio.basica.Editora;
 import livraria.acesso.DAOEditoraImpl;
@@ -51,10 +52,14 @@ public class RegraEditora {
             throw new RegraException("Editora já existe!");
         
     }
-    public DefaultTableModel defaultTable() throws Exception{
-        return dao.defaultTable();
+    public void remover(Integer codigo) {
+        try {
+            dao.remover(codigo);
+        } catch (DAOException | ConexaoException ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+        }
+        
     }
-
     public ArrayList<Editora> listar() throws ConexaoException, DAOException {
         return dao.listar();
                 

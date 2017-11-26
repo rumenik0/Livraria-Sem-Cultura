@@ -5,7 +5,11 @@
  */
 package livravia.telas;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import livraria.erro.ConexaoException;
+import livraria.erro.DAOException;
 
 /**
  *
@@ -108,9 +112,15 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Campo senha é obrigatório!");
         String login =  txtLogin.getText();
         String senha =  txtSenha.getText();
-        //Login x = new Login(login,senha);
-        //CONTINUA...
-        new Principal().setVisible(true);
+        try {
+            //Login x = new Login(login,senha);
+            //CONTINUA...
+            new Principal().setVisible(true);
+        } catch (ConexaoException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (DAOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_btnEntrarActionPerformed
 

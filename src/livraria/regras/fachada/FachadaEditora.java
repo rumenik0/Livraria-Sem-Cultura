@@ -25,6 +25,9 @@ public class FachadaEditora {
         regra.cadastrar(e); 
             
     }
+    public void remover(Integer codigo) throws DAOException, ConexaoException{
+        regra.remover(codigo);
+    }
     public ArrayList<Editora> listar() throws ConexaoException, DAOException{
         return regra.listar();
     }

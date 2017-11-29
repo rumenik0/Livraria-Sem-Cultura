@@ -143,7 +143,6 @@ public class CadCliente extends javax.swing.JFrame {
         || txtCpf.getText().isEmpty())
             JOptionPane.showMessageDialog(null, "Favor preencher todos campos");
         Pessoa p = new Cliente(txtNome.getText(),txtCpf.getText(),txtTelefone.getText(),txtSexo.getText());
-         
         
     }//GEN-LAST:event_BtnIncluirActionPerformed
 

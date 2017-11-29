@@ -8,6 +8,7 @@ package livravia.telas;
 import javax.swing.JOptionPane;
 import livraia.negocio.basica.Cliente;
 import livraia.negocio.basica.Pessoa;
+import livraria.regras.fachada.FachadaCliente;
 
 /**
  *
@@ -134,7 +135,7 @@ public class CadCliente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+    private FachadaCliente fachada;
     private void BtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIncluirActionPerformed
         if (txtNome.getText().isEmpty() 
         || txtTelefone.getText().isEmpty() 
@@ -142,7 +143,8 @@ public class CadCliente extends javax.swing.JFrame {
         || txtTelefone.getText().isEmpty()
         || txtCpf.getText().isEmpty())
             JOptionPane.showMessageDialog(null, "Favor preencher todos campos");
-        Pessoa p = new Cliente(txtNome.getText(),txtCpf.getText(),txtTelefone.getText(),txtSexo.getText());
+        Pessoa pessoa;
+        pessoa = new Cliente(txtNome.getText(),txtCpf.getText(),txtTelefone.getText(),txtSexo.getText());
         
     }//GEN-LAST:event_BtnIncluirActionPerformed
 

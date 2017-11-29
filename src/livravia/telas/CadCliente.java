@@ -153,7 +153,8 @@ public class CadCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        this.setVisible(false);
+        new TelaPrincipal().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**

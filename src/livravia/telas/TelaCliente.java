@@ -80,7 +80,8 @@ public class TelaCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        this.setVisible(false);
+        new TelaCliente().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**

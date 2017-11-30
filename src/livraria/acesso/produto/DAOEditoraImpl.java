@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package livraria.acesso;
+package livraria.acesso.produto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,20 +52,8 @@ public class DAOEditoraImpl implements DAOEditora{
     }
 
     @Override
-    public void remover(Integer codigo) throws DAOException, ConexaoException {
-        ger = GerenciadorConexaoImpl.getInstancia();
-        String sql = "DELETE editora WHERE codigo =?";
-        try{
-            Connection con = ger.abrirConexao();
-            pstm = con.prepareStatement(sql);
-            pstm.setInt(1,codigo);
-            pstm.executeUpdate();
-            
-        }catch(SQLException e){
-            throw new DAOException();
-        }finally{
-            ger.fecharConexao(con);
-        }
+    public void remover() throws DAOException, ConexaoException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -106,10 +94,15 @@ public class DAOEditoraImpl implements DAOEditora{
             Editora e;
             while(rs.next()){
                 e = new Editora();
+                System.out.println("teste 1");
+                System.out.println(rs.getString("razao_social"));
+                System.out.println("teste 2");
                 e.setCodigo(rs.getInt("codigo"));
                 e.setRazaoSocial(rs.getString("razao_social"));
                 e.setTelefone(rs.getString("telefone"));
+                System.out.println("teste 3");
                 lista.add(e);
+                System.out.println("teste 4");
             }
         }catch(SQLException e){
            System.out.println("SQL Ex:" + e.getMessage());
@@ -121,5 +114,28 @@ public class DAOEditoraImpl implements DAOEditora{
             ger.fecharConexao(con);
         }
         return lista;
-    } 
+    }
+    
+    
+    public DefaultTableModel defaultTable() throws Exception{
+        DefaultTableModel dtm = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        sql = "select * from editora";
+        pstm = con.prepareStatement(sql);
+        rs = pstm.executeQuery();
+
+        dtm.addColumn("codigo");
+        dtm.addColumn("razao_social");
+        dtm.addColumn("telefone");
+        while (rs.next()) {
+            dtm.addRow(new String[] {rs.getString("codigo"), rs.getString("razao_social"), rs.getString("telefone") });
+        }
+        ger.fecharConexao(con);                
+        return dtm;
+    }
+    
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package livraria.acesso;
+package livraria.acesso.produto;
 
 import livraia.negocio.basica.Livro;
 import livraria.erro.ConexaoException;

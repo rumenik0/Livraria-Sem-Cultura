@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package livraria.acesso;
+package livraria.acesso.produto;
 
 import livraia.negocio.basica.Editora;
 import livraria.erro.ConexaoException;
@@ -28,7 +28,7 @@ public interface DAOEditora {
      * @throws DAOException Erro na camada de dados
      * @throws ConexaoException  Erro durante conexão com o Banco de Dados 
      */
-    public void remover(Integer codigo)throws DAOException,ConexaoException;
+    public void remover()throws DAOException,ConexaoException;
 
     /**
      *

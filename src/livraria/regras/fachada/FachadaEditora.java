@@ -1,4 +1,4 @@
-package livraria.regras.fachada;
+ package livraria.regras.fachada;
 
 import java.util.ArrayList;
 import livraia.negocio.basica.Editora;
@@ -24,9 +24,6 @@ public class FachadaEditora {
         System.out.println("cadastrar");  
         regra.cadastrar(e); 
             
-    }
-    public void remover(Integer codigo) throws DAOException, ConexaoException{
-        regra.remover(codigo);
     }
     public ArrayList<Editora> listar() throws ConexaoException, DAOException{
         return regra.listar();

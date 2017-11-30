@@ -17,22 +17,11 @@ import livraria.erro.DAOException;
  */
 public class Principal extends javax.swing.JFrame {
 
-    private final TelaAutor         autor;
-    private final TelaGenero        genero;
-    private final TelaCliente       cliente;
-    private final TelaLivro         livro;             
-    private final TelaFuncionario   funcionario;
-    private final TelaEditora       editora;
     
     
     public Principal() throws ConexaoException, DAOException {
         initComponents();
-        autor = new TelaAutor();
-        genero = new TelaGenero();
-        cliente = new TelaCliente();
-        livro = new TelaLivro();
-        funcionario = new TelaFuncionario();
-        editora = new TelaEditora();
+
         
     }
 
@@ -163,32 +152,42 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerosActionPerformed
         this.setVisible(false);
-        genero.setVisible(true);  
+        dispose();
+        new TelaGenero().setVisible(true);  
         
     }//GEN-LAST:event_btnGenerosActionPerformed
 
     private void btnLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLivrosActionPerformed
         //this.setVisible(false);
         
-        livro.setVisible(true);
+        this.setVisible(false);
+        dispose();
+        new TelaLivro().setVisible(true);
     }//GEN-LAST:event_btnLivrosActionPerformed
 
     private void btnFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuncionariosActionPerformed
-       funcionario.setVisible(true);
+       this.setVisible(false);
+        dispose();
+        new TelaFuncionario().setVisible(true);
     }//GEN-LAST:event_btnFuncionariosActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        cliente.setVisible(true);
+        this.setVisible(false);
+        dispose();
+        new TelaCliente().setVisible(true);
         
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnAutoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAutoresActionPerformed
-        autor.setVisible(true);
+        this.setVisible(false);
+        dispose();
+        new TelaAutor().setVisible(true);
     }//GEN-LAST:event_btnAutoresActionPerformed
 
     private void btnEditorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditorasActionPerformed
-
-        editora.setVisible(true);
+        this.setVisible(false);
+        dispose();
+        new TelaEditora().setVisible(true);
         
     }//GEN-LAST:event_btnEditorasActionPerformed
 
@@ -231,9 +230,7 @@ public class Principal extends javax.swing.JFrame {
             public void run() {
                 try {
                     new Principal().setVisible(true);
-                } catch (ConexaoException ex) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
-                } catch (DAOException ex) {
+                } catch (Exception ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }

@@ -37,7 +37,7 @@ public interface DAOEditora {
      * @throws DAOException Erro na camada de dados
      * @throws ConexaoException  Erro durante conexão com o Banco de Dados 
      */
-    public void alterar()throws DAOException,ConexaoException;
+    public void alterar(Editora e)throws DAOException,ConexaoException;
 
     /**
      * Consult

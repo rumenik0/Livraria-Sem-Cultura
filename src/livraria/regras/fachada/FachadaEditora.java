@@ -26,6 +26,9 @@ public class FachadaEditora {
         regra.cadastrar(e); 
             
     }
+    public void alterar(Editora e) throws RegraException, DAOException, ConexaoException{
+        regra.alterar(e);
+    }
     public void remover(Editora e) throws DAOException, ConexaoException, RegraException, SQLException{
         regra.remover(e);
     }

@@ -28,9 +28,7 @@ import livraria.regras.fachada.FachadaEditora;
  */
 public class TelaEditora extends javax.swing.JFrame {
     private Editora editora;
-    private ArrayList<Editora> lstEditora;
     private FachadaEditora fachada;
-    private Exception erro;
     private DefaultTableModel modelo;
     /**
      * Creates new form CadEditora
@@ -39,11 +37,10 @@ public class TelaEditora extends javax.swing.JFrame {
         initComponents();
         fachada = new FachadaEditora();
         editora = new Editora();
-        erro = new Exception();
         modelo = (DefaultTableModel) tblListar.getModel();
         tblListar.setRowSorter(new TableRowSorter(modelo));
         try{
-           modelo = carrega(); 
+           carrega(); 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,e.getMessage());
         }
@@ -53,27 +50,55 @@ public class TelaEditora extends javax.swing.JFrame {
     public void limpar(){
         txtRazao.setText("");
         txtTelefone.setText("");
-        txtCodigo.setText("");
-        
+        txtCodigo.setText(""); 
     }
-    private DefaultTableModel carrega(){
-        DefaultTableModel novoModelo = (DefaultTableModel) tblListar.getModel();
-        novoModelo.setNumRows(0); 
-        tblListar.setModel(novoModelo); 
-
+    public void adicionar(Editora e){
+        if (editora == null)
+                JOptionPane.showMessageDialog(null,"Editora náo foi cadastrada");
+        modelo.addRow(new Object[]{
+                editora.getCodigo(),
+                editora.getRazaoSocial(),
+                editora.getTelefone()
+            });
+        tblListar.setModel(modelo); 
+    }
+    private void carrega(){
+        DefaultTableModel novaModel;
+        novaModel = (DefaultTableModel) tblListar.getModel();
+        novaModel.setNumRows(0);
         try {
             for (Editora e : fachada.listar()){
-                novoModelo.addRow(new Object[]{
+                novaModel.addRow(new Object[]{
                     e.getCodigo(),
                     e.getRazaoSocial(),
                     e.getTelefone()
                 });
             }
-            modelo = novoModelo;
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
         } finally{
-            return novoModelo;
+            modelo = novaModel;
+            tblListar.setModel(novaModel);
+        }
+    }
+    
+    private void carrega(String razao){
+        DefaultTableModel novaModel;
+        novaModel = (DefaultTableModel) tblListar.getModel();
+        novaModel.setNumRows(0);
+        try {
+            for (Editora e : fachada.listar(razao)){
+                novaModel.addRow(new Object[]{
+                    e.getCodigo(),
+                    e.getRazaoSocial(),
+                    e.getTelefone()
+                });
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+        } finally{
+            modelo = novaModel;
+            tblListar.setModel(novaModel);
         }
     }
     /**
@@ -98,8 +123,7 @@ public class TelaEditora extends javax.swing.JFrame {
         tblListar = new javax.swing.JTable();
         btnSalvar = new javax.swing.JButton();
         btnDeletar = new javax.swing.JButton();
-        apresentacao = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnPesquisar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
 
@@ -117,11 +141,6 @@ public class TelaEditora extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                formMouseClicked(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel1.setText("Cadastro de Editora");
@@ -162,7 +181,7 @@ public class TelaEditora extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -171,11 +190,6 @@ public class TelaEditora extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
-            }
-        });
-        tblListar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblListarMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblListar);
@@ -194,9 +208,12 @@ public class TelaEditora extends javax.swing.JFrame {
             }
         });
 
-        apresentacao.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
-
-        jButton3.setText("Pesquisar");
+        btnPesquisar.setText("Pesquisar");
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Codigo");
 
@@ -218,9 +235,7 @@ public class TelaEditora extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblRazao, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(74, 74, 74)
-                                .addComponent(apresentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(61, 61, 61)
+                                .addGap(223, 223, 223)
                                 .addComponent(btnSalvar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnDeletar)))
@@ -231,7 +246,7 @@ public class TelaEditora extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(171, 171, 171)
-                                        .addComponent(jButton3))
+                                        .addComponent(btnPesquisar))
                                     .addComponent(txtRazao, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,12 +273,10 @@ public class TelaEditora extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(lblRazao))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(apresentacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSalvar)
-                            .addComponent(btnDeletar)
-                            .addComponent(jButton3))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSalvar)
+                        .addComponent(btnDeletar)
+                        .addComponent(btnPesquisar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -301,20 +314,12 @@ public class TelaEditora extends javax.swing.JFrame {
         try {  
             fachada.cadastrar(editora);
             editora = fachada.consultar(editora.getRazaoSocial());
-            if (editora == null)
-                JOptionPane.showMessageDialog(null,"Editora náo foi cadastrada");
-            modelo.addRow(new Object[]{
-                    editora.getCodigo(),
-                    editora.getRazaoSocial(),
-                    editora.getTelefone()
-                });
-            tblListar.setModel(modelo); 
+            adicionar(editora);
+            
             limpar();
         } catch (SQLException | ConexaoException | DAOException | RegraException ex) {
             JOptionPane.showMessageDialog(null,ex.getMessage());
-        }
-        
-        
+        }    
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -324,40 +329,38 @@ public class TelaEditora extends javax.swing.JFrame {
 
     private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
     
-    int linha = tblListar.getSelectedRow();
-    String valor = tblListar.getValueAt(linha, 0).toString();
-    Integer cod = Integer.parseInt(valor);
-    editora.setCodigo(cod);
+        int linha = tblListar.getSelectedRow();
+        Integer cod = Integer.parseInt(tblListar.getValueAt(linha, 0).toString());
+        editora.setCodigo(cod);
         try {
             fachada.remover(editora);
             modelo.removeRow(linha);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,erro.getMessage());
+            JOptionPane.showMessageDialog(null,ex.getMessage());
         }finally{
             tblListar.setModel(modelo);
         }
     }//GEN-LAST:event_btnDeletarActionPerformed
 
-    private void tblListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListarMouseClicked
-        int linha = tblListar.getSelectedRow();
-        System.out.println("Linha: "+ linha);
-        String cod = tblListar.getValueAt(linha, 0).toString();
-        String razao = tblListar.getValueAt(linha, 1).toString();
-        String telefone = tblListar.getValueAt(linha, 2).toString();
-        txtCodigo.setText(cod);
-        txtRazao.setText(razao);
-        txtTelefone.setText(telefone);
-        
-        
-    }//GEN-LAST:event_tblListarMouseClicked
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
 
-    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        limpar();
-    }//GEN-LAST:event_formMouseClicked
+        if (txtRazao.getText() != "")
+            carrega(txtRazao.getText());
+        
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        txtRazao.getText();
-        txtTelefone.getText();
+        int linha = tblListar.getSelectedRow();
+        Integer cod = Integer.parseInt(tblListar.getValueAt(linha, 0).toString());
+        String razao = tblListar.getValueAt(linha, 1).toString();
+        String telefone = tblListar.getValueAt(linha, 2).toString();
+        editora = new Editora(cod,razao,telefone);
+        
+        try {
+            fachada.alterar(editora);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+        }         
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
@@ -397,12 +400,11 @@ public class TelaEditora extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel apresentacao;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnDeletar;
+    private javax.swing.JButton btnPesquisar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

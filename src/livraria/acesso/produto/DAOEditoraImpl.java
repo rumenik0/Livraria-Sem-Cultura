@@ -68,8 +68,20 @@ public class DAOEditoraImpl implements DAOEditora{
     }
 
     @Override
-    public void alterar() throws DAOException, ConexaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void alterar(Editora e) throws DAOException, ConexaoException {
+        GerenciadorConexao ger = GerenciadorConexaoImpl.getInstancia();
+        String sql = "UPDATE EDITORA SET RAZAO_SOCIAL = ?,TELEFONE = ? WHERE CODIGO = ?";
+        try{
+            Connection con = ger.abrirConexao();
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setString(1,e.getRazaoSocial());
+            pstm.setString(2,e.getTelefone());
+            pstm.setInt(3,e.getCodigo());
+            pstm.executeUpdate();
+            ger.fecharConexao(con);
+        }catch(SQLException ex){
+            throw new DAOException("DAO Editora erro: "+ex.getMessage());
+        }
     }
 
     @Override

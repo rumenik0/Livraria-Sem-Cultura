@@ -32,7 +32,6 @@ public class RegraEditora {
             throw new RegraException("Objeto Nulo!");
         if (e.getRazaoSocial().isEmpty())
             throw new RegraException("Editora sem Razao Social!");
-        System.out.println("validou");  
 
     }
     public void cadastrar(Editora e) throws DAOException, RegraException, ConexaoException{
@@ -48,6 +47,11 @@ public class RegraEditora {
             e = dao.consultar(e.getRazaoSocial());  
         }else
             throw new RegraException("Editora já existe!");
+    }
+    public void alterar(Editora e) throws RegraException, DAOException, ConexaoException{
+        validaDados(e);
+            if(e.getCodigo() != null)
+                dao.alterar(e);
     }
     
     public Editora consultar(String razao) throws DAOException, ConexaoException{

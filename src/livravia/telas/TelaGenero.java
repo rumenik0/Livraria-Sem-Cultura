@@ -5,6 +5,11 @@
  */
 package livravia.telas;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import livraria.erro.ConexaoException;
+import livraria.erro.DAOException;
+
 /**
  *
  * @author Pedro Nardelli
@@ -149,6 +154,11 @@ public class TelaGenero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        try {
+            new Principal().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(TelaGenero.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarActionPerformed
 

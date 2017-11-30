@@ -73,14 +73,15 @@ public class TelaCliente extends javax.swing.JFrame {
                 .addComponent(btnVoltar)
                 .addGap(69, 69, 69)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        this.setVisible(false);
+        new TelaCliente().setVisible(true);
+        dispose();
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**

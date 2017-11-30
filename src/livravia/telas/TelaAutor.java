@@ -66,6 +66,11 @@ public class TelaAutor extends javax.swing.JFrame {
         btnAlterar.setText("Alterar");
 
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Berlin Sans FB", 0, 11)); // NOI18N
         jLabel2.setText("Consultar:");
@@ -148,6 +153,10 @@ public class TelaAutor extends javax.swing.JFrame {
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirActionPerformed
 
     /**
      * @param args the command line arguments

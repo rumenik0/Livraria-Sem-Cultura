@@ -6,18 +6,20 @@
 package livravia.telas;
 
 import javax.swing.JOptionPane;
-import livraia.negocio.basica.Funcionario;
+import livraia.negocio.basica.Cliente;
+import livraia.negocio.basica.Pessoa;
+import livraria.regras.fachada.FachadaCliente;
 
 /**
  *
  * @author aluno
  */
-public class TelaFuncionario extends javax.swing.JFrame {
+public class CadCliente extends javax.swing.JFrame {
 
     /**
-     * Creates new form CadastroFuncionario
+     * Creates new form cadastro_cliente
      */
-    public TelaFuncionario() {
+    public CadCliente() {
         initComponents();
     }
 
@@ -30,38 +32,23 @@ public class TelaFuncionario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblCpf = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JTextField();
         lblNome = new javax.swing.JLabel();
-        BtnIncluir = new javax.swing.JButton();
-        lblCadastroFuncionario = new javax.swing.JLabel();
+        lblCadastroCliente = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        lblEndereco = new javax.swing.JLabel();
-        txtEndereco = new javax.swing.JTextField();
         lblTelefone = new javax.swing.JLabel();
         lblSexo = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JTextField();
         txtSexo = new javax.swing.JTextField();
-        lblLogin = new javax.swing.JLabel();
-        txtLogin = new javax.swing.JTextField();
-        lblSenha = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JPasswordField();
+        lblCpf = new javax.swing.JLabel();
+        txtCpf = new javax.swing.JTextField();
+        BtnIncluir = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblCpf.setText("CPF:");
-
         lblNome.setText("Nome:");
 
-        BtnIncluir.setText("Incluir");
-        BtnIncluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnIncluirActionPerformed(evt);
-            }
-        });
-
-        lblCadastroFuncionario.setText("Cadastro de Funcionario");
+        lblCadastroCliente.setText("Cadastro de Clientes");
 
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,17 +56,18 @@ public class TelaFuncionario extends javax.swing.JFrame {
             }
         });
 
-        lblEndereco.setText("Endereço:");
-
         lblTelefone.setText("Telefone:");
 
         lblSexo.setText("Sexo:");
 
-        lblLogin.setText("Login:");
+        lblCpf.setText("CPF:");
 
-        lblSenha.setText("Senha:");
-
-        txtSenha.setToolTipText("");
+        BtnIncluir.setText("Incluir");
+        BtnIncluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnIncluirActionPerformed(evt);
+            }
+        });
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -96,52 +84,39 @@ public class TelaFuncionario extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblCadastroFuncionario)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
-                        .addComponent(btnVoltar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(BtnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(BtnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblEndereco)
                                     .addComponent(lblNome)
                                     .addComponent(lblTelefone)
                                     .addComponent(lblSexo)
                                     .addComponent(lblCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(30, 30, 30)
+                                .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(lblSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                                    .addComponent(lblLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(39, 39, 39)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                                    .addComponent(txtSenha))))))
-                .addContainerGap())
+                                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(78, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblCadastroCliente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVoltar)
+                        .addGap(38, 38, 38))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblCadastroFuncionario)
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCadastroCliente)
                     .addComponent(btnVoltar))
-                .addGap(43, 43, 43)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEndereco)
-                    .addComponent(txtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTelefone)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -153,33 +128,24 @@ public class TelaFuncionario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCpf)
                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLogin)
-                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSenha)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGap(55, 55, 55)
                 .addComponent(BtnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private FachadaCliente fachada;
     private void BtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIncluirActionPerformed
-        if ( txtNome.getText().isEmpty()
-            || txtEndereco.getText().isEmpty()
-            || txtSexo.getText().isEmpty()
-            || txtTelefone.getText().isEmpty()
-            || txtCpf.getText().isEmpty()
-            || txtLogin.getText().isEmpty()
-            || txtSenha.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Favor preencher todos campos");}
-        Funcionario f = new Funcionario(txtNome.getText(),txtCpf.getText(),txtTelefone.getText(),txtSexo.getText(),txtEndereco.getText(),txtLogin.getText(),txtSenha.getText());
-
+        if (txtNome.getText().isEmpty() 
+        || txtTelefone.getText().isEmpty() 
+        || txtSexo.getText().isEmpty() 
+        || txtTelefone.getText().isEmpty()
+        || txtCpf.getText().isEmpty())
+            JOptionPane.showMessageDialog(null, "Favor preencher todos campos");
+        Pessoa pessoa;
+        pessoa = new Cliente(txtNome.getText(),txtCpf.getText(),txtTelefone.getText(),txtSexo.getText());
+        
     }//GEN-LAST:event_BtnIncluirActionPerformed
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
@@ -208,21 +174,35 @@ public class TelaFuncionario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaFuncionario().setVisible(true);
+                new CadCliente().setVisible(true);
             }
         });
     }
@@ -230,19 +210,13 @@ public class TelaFuncionario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnIncluir;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JLabel lblCadastroFuncionario;
+    private javax.swing.JLabel lblCadastroCliente;
     private javax.swing.JLabel lblCpf;
-    private javax.swing.JLabel lblEndereco;
-    private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblSexo;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JTextField txtCpf;
-    private javax.swing.JTextField txtEndereco;
-    private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtSexo;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables

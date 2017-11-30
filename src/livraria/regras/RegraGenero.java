@@ -13,6 +13,14 @@ import livraria.erro.RegraException;
  * @author aluno
  */
 public class RegraGenero {
+
+   // public RegraGenero() {
+       // genero = new Genero(); falta implementar
+        //dao = new DAOGeneroImpl(); falta implementar
+    
+    //}
+
+
     
     public void validarDados(Genero g) throws RegraException{
         if (g == null){

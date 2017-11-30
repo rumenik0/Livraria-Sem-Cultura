@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import livraia.negocio.basica.Editora;
 import livraria.erro.ConexaoException;
@@ -43,8 +45,8 @@ public class DAOEditoraImpl implements DAOEditora{
         try{
             Connection con = ger.abrirConexao();
             PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1,e.getRazaoSocial());
-            pstm.setString(2,e.getTelefone());
+            pstm.setString(2,e.getRazaoSocial());
+            pstm.setString(1,e.getTelefone());
             pstm.executeUpdate();
             ger.fecharConexao(con);
         }catch(SQLException ex){
@@ -71,10 +73,10 @@ public class DAOEditoraImpl implements DAOEditora{
     }
 
     @Override
-    public Editora consultar(String razao) throws DAOException, ConexaoException {
+    public Editora consultar(String razao) throws DAOException {
         editora = null;
         GerenciadorConexao ger = GerenciadorConexaoImpl.getInstancia();
-        String sql = "SELECT codigo,RAZAO_SOCIAL,TELEFONE FROM EDITORA WHERE RAZAO_SOCIAL =?";
+        String sql = "SELECT CODIGO,RAZAO_SOCIAL,TELEFONE FROM EDITORA WHERE RAZAO_SOCIAL =?";
         try{
             Connection con = ger.abrirConexao();
             pstm = con.prepareStatement(sql);
@@ -82,19 +84,20 @@ public class DAOEditoraImpl implements DAOEditora{
             ResultSet rs = pstm.executeQuery();
             if(rs.next()){
                 editora = new Editora();
-                editora.setCodigo(rs.getInt("codigo"));
-                editora.setRazaoSocial(rs.getString("razao_social"));
-                editora.setTelefone(rs.getString("telefone"));
+                System.out.println("Select Editora codigo: "+ rs.getInt("CODIGO".toString()));
+                editora.setCodigo(rs.getInt("CODIGO"));
+                editora.setRazaoSocial(rs.getString("RAZAO_SOCIAL"));
+                editora.setTelefone(rs.getString("TELEFONE"));
             }
             ger.fecharConexao(con);
-        }catch(SQLException e){
+        }catch(Exception e){
             throw new DAOException("SQL Exception no DAOEditora: "+e.getMessage());
         }
         return editora;
     }
     public ArrayList<Editora> listar() throws ConexaoException, DAOException, Exception{
         ger = GerenciadorConexaoImpl.getInstancia();
-        sql = "SELECT codigo,RAZAO_SOCIAL,TELEFONE FROM EDITORA";
+        sql = "SELECT CODIGO,RAZAO_SOCIAL,TELEFONE FROM EDITORA";
         try{ 
             con = ger.abrirConexao();
             pstm = con.prepareStatement(sql);
@@ -103,13 +106,9 @@ public class DAOEditoraImpl implements DAOEditora{
             Editora e;
             while(rs.next()){
                 e = new Editora();
-                System.out.println("teste 1");
-                System.out.println(rs.getString("razao_social"));
-                System.out.println("teste 2");
-                e.setCodigo(rs.getInt("codigo"));
+                e.setCodigo(rs.getInt("CODIGO"));
                 e.setRazaoSocial(rs.getString("razao_social"));
                 e.setTelefone(rs.getString("telefone"));
-                System.out.println("teste 3");
                 lista.add(e);
             }
         }catch(SQLException e){
@@ -119,8 +118,7 @@ public class DAOEditoraImpl implements DAOEditora{
             System.out.println("Conex Ex");
             erro = new DAOException("Conexao Exception no DAOEditora: "+e.getMessage());
         }finally{
-            ger.fecharConexao(con);
-            //throw erro;
+            ger.fecharConexao(con);;
         }
         return lista;
     }

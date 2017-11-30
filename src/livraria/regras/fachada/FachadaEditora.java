@@ -1,5 +1,6 @@
  package livraria.regras.fachada;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import livraia.negocio.basica.Editora;
 import livraria.erro.ConexaoException;
@@ -25,8 +26,11 @@ public class FachadaEditora {
         regra.cadastrar(e); 
             
     }
-    public void remover(Editora e) throws DAOException, ConexaoException{
+    public void remover(Editora e) throws DAOException, ConexaoException, RegraException, SQLException{
         regra.remover(e);
+    }
+    public Editora consultar(String razao) throws DAOException, ConexaoException, RegraException, SQLException{
+        return regra.consultar(razao);
     }
     public ArrayList<Editora> listar(String razao) throws ConexaoException, DAOException, Exception{
         return regra.listar(razao);

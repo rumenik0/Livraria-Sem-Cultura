@@ -38,9 +38,6 @@ public class RegraEditora {
     public void cadastrar(Editora e) throws DAOException, RegraException, ConexaoException{
         try {
             editora = dao.consultar(e.getRazaoSocial());
-        } catch (ConexaoException ex) {
-            System.out.println("Conexao exception");
-            throw ex;
         }catch (DAOException ex) {
             System.out.println("DAO Exception"+ex.getMessage());
             throw ex;
@@ -48,9 +45,13 @@ public class RegraEditora {
         if (editora== null){
             System.out.println("inserir"); 
             dao.inserir(e);
+            e = dao.consultar(e.getRazaoSocial());  
         }else
             throw new RegraException("Editora já existe!");
-        
+    }
+    
+    public Editora consultar(String razao) throws DAOException, ConexaoException{
+        return dao.consultar(razao);
     }
 
     /**

@@ -187,6 +187,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAutoresActionPerformed
 
     private void btnEditorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditorasActionPerformed
+
         editora.setVisible(true);
         
     }//GEN-LAST:event_btnEditorasActionPerformed

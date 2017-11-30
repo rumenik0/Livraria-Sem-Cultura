@@ -7,6 +7,7 @@ package livravia.telas;
 
 import java.awt.Cursor;
 import java.awt.List;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +27,6 @@ import livraria.regras.fachada.FachadaEditora;
  * @author aluno
  */
 public class TelaEditora extends javax.swing.JFrame {
-    private int colNum; 
     private Editora editora;
     private ArrayList<Editora> lstEditora;
     private FachadaEditora fachada;
@@ -43,11 +43,7 @@ public class TelaEditora extends javax.swing.JFrame {
         modelo = (DefaultTableModel) tblListar.getModel();
         tblListar.setRowSorter(new TableRowSorter(modelo));
         try{
-            
-           carrega();
-            
-        }catch (ConexaoException e){
-            JOptionPane.showMessageDialog(null,e.getMessage());
+           modelo = carrega(); 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,e.getMessage());
         }
@@ -56,16 +52,28 @@ public class TelaEditora extends javax.swing.JFrame {
     
     public void limpar(){
         txtRazao.setText("");
-        txtTelefone.setText("");  
+        txtTelefone.setText("");
+        txtCodigo.setText("");
+        
     }
-    private void carrega() throws ConexaoException, DAOException, Exception{
-        modelo = (DefaultTableModel) tblListar.getModel();
-        for (Editora e : fachada.listar()){
-            modelo.addRow(new Object[]{
-                e.getCodigo(),
-                e.getRazaoSocial(),
-                e.getTelefone()
-            });
+    private DefaultTableModel carrega(){
+        DefaultTableModel novoModelo = (DefaultTableModel) tblListar.getModel();
+        novoModelo.setNumRows(0); 
+        tblListar.setModel(novoModelo); 
+
+        try {
+            for (Editora e : fachada.listar()){
+                novoModelo.addRow(new Object[]{
+                    e.getCodigo(),
+                    e.getRazaoSocial(),
+                    e.getTelefone()
+                });
+            }
+            modelo = novoModelo;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+        } finally{
+            return novoModelo;
         }
     }
     /**
@@ -88,10 +96,12 @@ public class TelaEditora extends javax.swing.JFrame {
         btnVoltar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListar = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnDeletar = new javax.swing.JButton();
         apresentacao = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,6 +117,11 @@ public class TelaEditora extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Berlin Sans FB", 0, 14)); // NOI18N
         jLabel1.setText("Cadastro de Editora");
@@ -134,20 +149,20 @@ public class TelaEditora extends javax.swing.JFrame {
 
         tblListar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Codigo", "Razao_Social"
+                "Codigo", "Razao_Social", "Telefone"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -165,18 +180,27 @@ public class TelaEditora extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblListar);
 
-        jButton1.setText("Alterar");
-
-        jButton2.setText("Deletar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
+        btnDeletar.setText("Deletar");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
             }
         });
 
         apresentacao.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
 
         jButton3.setText("Pesquisar");
+
+        jLabel2.setText("Codigo");
+
+        txtCodigo.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -193,24 +217,32 @@ public class TelaEditora extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblRazao, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(151, 151, 151)
-                                        .addComponent(apresentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblRazao, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(74, 74, 74)
+                                .addComponent(apresentacao, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(61, 61, 61)
-                                .addComponent(jButton1)
+                                .addComponent(btnSalvar)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)))
+                                .addComponent(btnDeletar)))
                         .addGap(0, 12, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(171, 171, 171)
+                                        .addComponent(jButton3))
+                                    .addComponent(txtRazao, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtCodigo)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtRazao, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addGap(84, 84, 84)))
                         .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -224,26 +256,30 @@ public class TelaEditora extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblRazao)
-                            .addComponent(jButton3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtRazao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblTelefone)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(14, 14, 14)
+                        .addComponent(lblRazao))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(apresentacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))))
+                            .addComponent(btnSalvar)
+                            .addComponent(btnDeletar)
+                            .addComponent(jButton3))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtRazao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTelefone)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 24, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -252,7 +288,6 @@ public class TelaEditora extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
 
-        
         if (txtRazao.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"O campo Razão Social é obrigatório!");
             return;
@@ -260,54 +295,70 @@ public class TelaEditora extends javax.swing.JFrame {
         if (txtTelefone.getText().isEmpty()){
             JOptionPane.showMessageDialog(null,"O campo Telefone é obrigatório!");
             return;
-        }   
-        editora.setRazaoSocial(txtRazao.getText());
-        editora.setTelefone(txtTelefone.getText());
+        } 
+        editora = new Editora(txtRazao.getText(),txtTelefone.getText());
         
         try {  
             fachada.cadastrar(editora);
-            JOptionPane.showMessageDialog(null,"Registro Inserido com sucesso!");  
+            editora = fachada.consultar(editora.getRazaoSocial());
+            if (editora == null)
+                JOptionPane.showMessageDialog(null,"Editora náo foi cadastrada");
+            modelo.addRow(new Object[]{
+                    editora.getCodigo(),
+                    editora.getRazaoSocial(),
+                    editora.getTelefone()
+                });
+            tblListar.setModel(modelo); 
             limpar();
-        } catch (DAOException | ConexaoException | RegraException ex) {
-            System.out.println("erro :"+ex.getMessage());
-            JOptionPane.showMessageDialog(null,erro.getMessage());
+        } catch (SQLException | ConexaoException | DAOException | RegraException ex) {
+            JOptionPane.showMessageDialog(null,ex.getMessage());
         }
         
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+
         this.setVisible(false);
     }//GEN-LAST:event_btnVoltarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-    //tblListar.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    //int rowIndex = tblListar.getSelectedRow();
-    //int colNum = tblListar.getSelectedColumn();
-    System.out.println("coll : "+ String.valueOf(colNum)   );
-    //System.out.println("coll"+ String.valueOf(colIndex) );
-    Integer codigo = Integer.parseInt(tblListar.getValueAt(colNum, 0).toString()) ;
-    editora.setCodigo(codigo);
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+    
+    int linha = tblListar.getSelectedRow();
+    String valor = tblListar.getValueAt(linha, 0).toString();
+    Integer cod = Integer.parseInt(valor);
+    editora.setCodigo(cod);
         try {
             fachada.remover(editora);
-        } catch (DAOException | ConexaoException ex) {
-            if (ex != null) erro = ex;
-        }finally{
+            modelo.removeRow(linha);
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,erro.getMessage());
+        }finally{
+            tblListar.setModel(modelo);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnDeletarActionPerformed
 
     private void tblListarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListarMouseClicked
-        colNum = tblListar.getSelectedRow();
-        System.out.println("ColNum 1"+colNum);
-        
-        String c = tblListar.getValueAt(colNum, 0).toString();
-        System.out.println("valueiuuh   uiuhuih "+c);
-        
+        int linha = tblListar.getSelectedRow();
+        System.out.println("Linha: "+ linha);
+        String cod = tblListar.getValueAt(linha, 0).toString();
+        String razao = tblListar.getValueAt(linha, 1).toString();
+        String telefone = tblListar.getValueAt(linha, 2).toString();
+        txtCodigo.setText(cod);
+        txtRazao.setText(razao);
+        txtTelefone.setText(telefone);
         
         
     }//GEN-LAST:event_tblListarMouseClicked
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        limpar();
+    }//GEN-LAST:event_formMouseClicked
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        txtRazao.getText();
+        txtTelefone.getText();
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,17 +399,19 @@ public class TelaEditora extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel apresentacao;
     private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnDeletar;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblRazao;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JTable tblListar;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtRazao;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables

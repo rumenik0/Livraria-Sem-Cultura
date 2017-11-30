@@ -17,10 +17,15 @@ public class Editora {
             this.razaoSocial = razaoSocial;
             this.telefone = telefone;
     }
+    public Editora(Integer codigo,String razaoSocial, String telefone){
+        this.codigo = codigo;
+        this.razaoSocial = razaoSocial;
+        this.telefone = telefone;
+    }
         
-        private Integer codigo;
-        private String razaoSocial;
-        private String telefone;
+    private Integer codigo;
+    private String razaoSocial;
+    private String telefone;
 
     /**
      * @return the razaoSocial

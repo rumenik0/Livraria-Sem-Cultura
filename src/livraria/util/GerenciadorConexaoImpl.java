@@ -45,7 +45,8 @@ public class GerenciadorConexaoImpl implements GerenciadorConexao{
     @Override
     public void fecharConexao(Connection c)throws ConexaoException{
         try {
-            c.close();
+            System.out.println("CloseConnection");
+            c.close();        
         } catch (SQLException e) {
             throw new ConexaoException();
         }

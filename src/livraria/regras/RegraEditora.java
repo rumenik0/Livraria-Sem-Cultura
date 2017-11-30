@@ -5,6 +5,7 @@
  */
 package livraria.regras;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +21,7 @@ import livraria.erro.RegraException;
  * @author rudnik
  */
 public class RegraEditora {
-    private DAOEditoraImpl dao;
+    private final DAOEditoraImpl dao;
     private Editora editora;
     public RegraEditora(){
         editora = new Editora();
@@ -51,11 +52,28 @@ public class RegraEditora {
             throw new RegraException("Editora já existe!");
         
     }
+
+    /**
+     * 
+     * @param e Editora a ser removida do BD.
+     * @throws livraria.erro.DAOException Erro na camada de acesso.
+     * @throws livraria.erro.ConexaoException Erro na camada de acesso.
+     */
+    public void remover(Editora e) throws DAOException, ConexaoException, RegraException, SQLException{
+        if (e != null)
+            dao.remover(e);
+        else
+            throw new RegraException("Remover Editora error: objeto nulo");
+    }
     public DefaultTableModel defaultTable() throws Exception{
         return dao.defaultTable();
     }
 
-    public ArrayList<Editora> listar() throws ConexaoException, DAOException {
+    public ArrayList<Editora> listar(String razao) throws ConexaoException, DAOException, Exception {
+        return dao.listar(razao);
+                
+    }
+    public ArrayList<Editora> listar( ) throws ConexaoException, DAOException, Exception {
         return dao.listar();
                 
     }

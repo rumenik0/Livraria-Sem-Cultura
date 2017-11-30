@@ -246,13 +246,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultarAutorActionPerformed
 
     private void btnCadastrarEditoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarEditoraActionPerformed
-        try {
             new TelaEditora().setVisible(true);
-        } catch (ConexaoException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (DAOException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         dispose();
     }//GEN-LAST:event_btnCadastrarEditoraActionPerformed
 

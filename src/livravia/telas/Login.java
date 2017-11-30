@@ -105,7 +105,8 @@ public class Login extends javax.swing.JFrame {
         }catch(ConexaoException | DAOException e){
             erro = e;
         }finally{
-            JOptionPane.showMessageDialog(null,erro.getMessage());
+            if (erro != null)
+                JOptionPane.showMessageDialog(null,erro.getMessage());
         }
         
 

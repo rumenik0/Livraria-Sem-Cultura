@@ -29,6 +29,7 @@ public class DAOEditoraImpl implements DAOEditora{
     private String sql;
     private ArrayList<Editora> lista;
     private ResultSet rs;
+    private Exception erro;
     
     public DAOEditoraImpl(){
         lista = new ArrayList<>();
@@ -52,8 +53,16 @@ public class DAOEditoraImpl implements DAOEditora{
     }
 
     @Override
-    public void remover() throws DAOException, ConexaoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void remover(Editora e) throws DAOException, ConexaoException,SQLException {
+        GerenciadorConexao ger = GerenciadorConexaoImpl.getInstancia();
+        String sql = "DELETE FROM EDITORA WHERE CODIGO = ?";
+
+        Connection con = ger.abrirConexao();
+        PreparedStatement pstm = con.prepareStatement(sql);
+        pstm.setInt(1,e.getCodigo());
+        pstm.executeUpdate();
+        ger.fecharConexao(con);
+
     }
 
     @Override
@@ -83,7 +92,7 @@ public class DAOEditoraImpl implements DAOEditora{
         }
         return editora;
     }
-    public ArrayList<Editora> listar() throws ConexaoException, DAOException{
+    public ArrayList<Editora> listar() throws ConexaoException, DAOException, Exception{
         ger = GerenciadorConexaoImpl.getInstancia();
         sql = "SELECT codigo,RAZAO_SOCIAL,TELEFONE FROM EDITORA";
         try{ 
@@ -102,16 +111,47 @@ public class DAOEditoraImpl implements DAOEditora{
                 e.setTelefone(rs.getString("telefone"));
                 System.out.println("teste 3");
                 lista.add(e);
-                System.out.println("teste 4");
             }
         }catch(SQLException e){
            System.out.println("SQL Ex:" + e.getMessage());
-            throw new DAOException("SQL Exception no DAOEditora: "+e.getMessage());
+            erro = new DAOException("SQL Exception no DAOEditora: "+e.getMessage());
         }catch(ConexaoException e){
             System.out.println("Conex Ex");
-            throw new DAOException("Conexao Exception no DAOEditora: "+e.getMessage());
+            erro = new DAOException("Conexao Exception no DAOEditora: "+e.getMessage());
         }finally{
             ger.fecharConexao(con);
+            //throw erro;
+        }
+        return lista;
+    }
+    
+    public ArrayList<Editora> listar(String razao) throws ConexaoException, DAOException, Exception{
+        ger = GerenciadorConexaoImpl.getInstancia();
+        sql = "SELECT codigo,RAZAO_SOCIAL,TELEFONE FROM EDITORA WHERE RAZAO_SOCIAL LIKE '%?%'";
+        try{ 
+            con = ger.abrirConexao();
+            pstm = con.prepareStatement(sql);
+            pstm.setString(1,razao);
+            rs = pstm.executeQuery();
+            System.out.println("listar");
+            Editora e;
+            while(rs.next()){
+                e = new Editora();
+                System.out.println(rs.getString("razao_social"));
+                e.setCodigo(rs.getInt("codigo"));
+                e.setRazaoSocial(rs.getString("razao_social"));
+                e.setTelefone(rs.getString("telefone"));
+                lista.add(e);
+            }
+        }catch(SQLException e){
+           System.out.println("SQL Ex:" + e.getMessage());
+            erro = new DAOException("SQL Exception no DAOEditora: "+e.getMessage());
+        }catch(ConexaoException e){
+            System.out.println("Conex Ex");
+            erro = new DAOException("Conexao Exception no DAOEditora: "+e.getMessage());
+        }finally{
+            ger.fecharConexao(con);
+            //throw erro;
         }
         return lista;
     }

@@ -5,6 +5,7 @@
  */
 package livraria.acesso.produto;
 
+import java.sql.SQLException;
 import livraia.negocio.basica.Editora;
 import livraria.erro.ConexaoException;
 import livraria.erro.DAOException;
@@ -25,10 +26,11 @@ public interface DAOEditora {
 
     /**
      *
+     * @param e
      * @throws DAOException Erro na camada de dados
      * @throws ConexaoException  Erro durante conexão com o Banco de Dados 
      */
-    public void remover()throws DAOException,ConexaoException;
+    public void remover(Editora e)throws DAOException,ConexaoException,SQLException;
 
     /**
      *
